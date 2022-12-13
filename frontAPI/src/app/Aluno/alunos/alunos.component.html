@@ -1,0 +1,79 @@
+
+<section class="container">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/">Portal Alunos</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Lista Alunos</li>
+        </ol>
+    </nav>
+<article> <div class="card">
+    <div>
+    <div class="card-body">
+        <div class="form-group mb-2">
+            <input type="text" class="form-control" placeholder="Digite o nome a pesquisar"
+            [(ngModel)]="filtroLista">
+        </div>
+        <h3>{{filtroLista}}</h3>
+    </div>
+    </div>
+ </div>
+</article>
+ <article>
+ <div class="card">
+    <div class="card-header">
+        <h5 class="carde-title">
+            Lista de Alunos
+        </h5>
+    </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        <button type="button"
+                        (click)="getMostarOcultarImg()"
+                        class="btn btn-outline-secondary btn-sm">
+                    {{mostrarImg ? 'Ocultar':'Exibir'}}
+                    </button>
+                    </th>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Telefone</th>
+                    <th>Nascimento</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let aluno of alunosFiltrados">
+                    <td>
+                        <img [collapse]="mostrarImg"
+                        [isAnimated]="true"
+                        src="assets/{{aluno.imagemFoto}}"
+                        [style.width.px] = "larguraImg"
+                        [style.margin.px] = "margemImg">
+                    </td>
+                    <td>{{aluno.id}}</td>
+                    <td>{{aluno.nome}}</td>
+                    <td>{{aluno.email}}</td>
+                    <td>{{aluno.telefone}}</td>
+                    <td>{{aluno.nascimento}}</td>
+                    <td><button class="btn btn-sm btn-danger" (click)="removerItem(aluno.id)" ><i class="fa-solid fa-trash-can"></i></button> </td>
+                    <td><a routerLink="/Aluno/Editar/{{aluno.id}}" class="btn btn-sm btn-info"><i class="fa-solid fa-pen"></i></a></td>
+                </tr>
+            </tbody>
+        </table>
+</div>
+</article>
+</section>
+
+<ng-template #confirmaExclusao>
+  <div class="modal-body text-center">
+    <p>Tem certeza que deseja excluir o aluno?</p>
+    <button type="button" class="btn btn-default" (click)="onConfirm()">Sim</button>
+    <button type="button" class="btn btn-primary"  (click)="onDecline()">Não</button>
+  </div>
+</ng-template>
+
+
+

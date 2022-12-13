@@ -1,0 +1,60 @@
+<section class="container">
+    <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/">Portal Alunos</a></li>
+          <li class="breadcrumb-item" aria-current="page">Cadastros</li>
+          <li class="breadcrumb-item active" aria-current="page">Materias</li>
+        </ol>
+    </nav>     
+    <form #form="ngForm" (ngSubmit)="salvarForm(form)">
+        <article>
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Cadastrar Matéria</h5>
+                </div>
+                <div class="card-body">
+                    <div class="col-sm-6">
+                        <label for="materia">Matéria</label>
+                        <input type="text" name="materia" id="materia" class="form-control" ngModel> 
+                    </div>
+                    <div class="col-sm-12">
+                        <label for="descricao">Descrição</label>
+                        <textarea class="form-control" name="descricao" id="descricao" rows="4" ngModel></textarea>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-success">Salvar</button>
+                </div>
+            </div>
+        </article>
+    </form>
+    <br>
+    <BR>
+    <article>
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Lista de matérias</h5>
+            </div>
+            <div>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>id</th>
+                            <th>materia</th>
+                            <th>descricao</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let materia of materiasFiltrados">
+                            <td>{{ materia.id }} </td>
+                            <td>{{ materia.materia }} </td>
+                            <td>{{ materia.descricao }} </td>
+                            <td><button class="btn btn-sm btn-danger" (click)="removerItem(materia.id)"><i class="fa-solid fa-trash-can"></i></button> </td>
+                            <td><button class="btn btn-sm btn-info" (click)="removerItem(materia.id)"><i class="fa-solid fa-pen"></i></button> </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </article>
+</section>

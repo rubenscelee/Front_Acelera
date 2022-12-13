@@ -1,0 +1,53 @@
+<p>Lista de aulas</p>
+<table>
+    <thead>
+        <tr>
+            <th>Materia</th>
+            <td>Data</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let aula of aulas">
+            <td>{{ aula.materia }}</td>
+            <td>{{ aula.data }}</td>
+        </tr>
+        
+    </tbody>
+</table>
+
+<p>Matérias - Atos</p>
+<section>
+ <div class="card">
+    <form action="">
+    <div class="card-body">        
+        <div class="form-group mb-2">
+            <input type="text" class="form-control" placeholder="Digite a materia a pesquisar">
+        </div>       
+    </div>
+    <div class="card-footer">
+        <button class="btn btn-info"><i class="fa-regular fa-magnifying-glass"></i> Pesquisar</button>
+    </div>
+    </form>
+ </div>
+ <div class="card">
+    <div  class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Materia</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let aula of aulas">
+                    <td>{{aula.materia}}</td>
+                    <td>{{aula.data}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>   
+</section>
+
+
+

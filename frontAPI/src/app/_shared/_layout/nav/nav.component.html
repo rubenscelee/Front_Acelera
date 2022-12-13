@@ -1,0 +1,32 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Portal Atos</a>
+      <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse"  [collapse]="isCollapsed" [isAnimated]="true" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/" [routerLinkActive]="['active']" [routerLinkActiveOptions] = "{exact: true}">Home</a>
+          </li>          
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/Aluno/Lista" [routerLinkActive]="['active']">Lista Alunos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/Aluno/Cadastro" [routerLinkActive]="['active']">Cadastro Alunos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/lista-professores" [routerLinkActive]="['active']">Lista Professores</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/cadastro-professores" [routerLinkActive]="['active']">Cadastro Professores</a>
+          </li>   
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/lista-materias" [routerLinkActive]="['active']">Lista Metérias</a>
+          </li>                  
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>

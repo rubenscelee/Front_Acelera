@@ -1,0 +1,50 @@
+<section class="container">
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/">Portal Alunos</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Cadastro Professor</li>
+        </ol>
+</nav>     
+
+<form #form="ngForm" (ngSubmit)="salvarForm(form)" autocomplete="off">
+   <article>
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Cadastro de professor</h5>
+        </div>
+        <div class="card-body">
+            <div clas="row">
+                <div class="col-md-3">
+                    <img src="">
+                    <input type="file" ngModel>
+                </div>
+                <div class="col-md-9">
+                    <div class="col-sm-6 form-group">
+                        <label for="nome">Nome professos</label>
+                        <input type="text" class="form-control" name="nome" id="nome" required ngModel>
+                        <span class="is-invalid" *ngIf="form.invalid">campo obrigatório</span>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" class="form-control" name="email" id="email" required ngModel>
+                        <span class="is-invalid" *ngIf="form.invalid">campo obrigatório</span>
+                    </div>
+                    <div class="col-sm-6 form-group">
+                        <label for="telefone">Telefone</label>
+                        <input type="text" class="form-control" name="telefone" id="telefone" ngModel>
+                    </div>
+                    <div class="col-sm-4 form-group">
+                        <label for="horario">Horário</label>
+                        <input type="text" class="form-control" name="horario" id="horario" ngModel>                        
+                    </div>                          
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button [disabled]="form.invalid" class="btn btn-success" >Enviar dados</button>
+        </div>
+    </div>
+   </article>
+</form>
+{{form.value | json}} 
+</section>
