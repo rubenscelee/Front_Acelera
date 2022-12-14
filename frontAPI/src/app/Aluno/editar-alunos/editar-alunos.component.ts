@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class EditarAlunosComponent implements OnInit {
 
-  public urlAPI: string = "https://localhost:7146/api/Alunos";
+  public urlAPI: string = "https://localhost:44391/api/Alunos";
   public aluno: any = [];
   public mensagem:string = '';
   public id:number = 0;
@@ -38,7 +38,7 @@ export class EditarAlunosComponent implements OnInit {
   salvarForm(form: NgForm){
 
     console.log(form.value);
-    this.http.put(this.urlAPI + "/" + this.id, form.value).subscribe(
+    this.http.put(this.urlAPI + "/" + this.id, form.value).subscribe(      
       response => {
         console.log (response);
         this.mensagem = 'Salvo com sucesso!';
@@ -51,7 +51,7 @@ export class EditarAlunosComponent implements OnInit {
     );
 
     console.log(form.value);
-
+   
   }
 
 }

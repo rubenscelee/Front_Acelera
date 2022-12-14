@@ -14,11 +14,10 @@ export class MateriaComponent implements OnInit {
   public materias: any = [];
   public materiasFiltrados: any = [];
   constructor(private http: HttpClient) { }
-  public valorDigitado: string = "";
-  public margemImg: number = 2;
-  public larguraImg: number = 50;
-  public mostrarImg: boolean = true;
+
   private _filtroLista: string = '';
+
+  private id: number = 0;
 
   public get filtroLista() {
     return this._filtroLista
@@ -35,12 +34,10 @@ export class MateriaComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.id =0;
     this.getmaterias();
   }
 
-  getMostarOcultarImg() {
-    this.mostrarImg = !this.mostrarImg;
-  }
 
   public getmaterias(): void {
     this.http.get(this.urlAPI).subscribe(
@@ -58,6 +55,7 @@ export class MateriaComponent implements OnInit {
           console.log(response);
           this.materiasFiltrados.push(response);
           form.reset();
+          this.id = 0;
 
         },
         error => {

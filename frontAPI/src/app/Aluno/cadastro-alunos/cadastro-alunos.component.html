@@ -4,7 +4,7 @@
           <li class="breadcrumb-item"><a routerLink="/">Portal Alunos</a></li>
           <li class="breadcrumb-item active" aria-current="page">Cadastro Alunos</li>
         </ol>
-</nav>
+</nav>    
 <form #form="ngForm" method="post" (ngSubmit)="salvarForm(form)" autocomplete="off">
    <article>
     <div class="card">
@@ -15,11 +15,11 @@
             <div clas="row">
                 <div class="col-md-3">
                     <img src="">
-                    <div class="col-md-3">
+                    <div class="mb-3">
                         <label for="fotoFile" class="form-label">Selecionar a foto</label>
-                        <input class="form-control form-control-sm" type="file" id="fotoFile" (change)="onSelectFile($event)" ngModel>
-                    </div>
-                    <button class="btn btn-info">Enviar</button>
+                        <input class="form-control form-control-sm" id="fotoFile" type="file" (change)="onSelectFile($event)" ngModel>
+                    </div> 
+                    <button type="button" class="btn btn-info" (click)="onUpload()">Enviar imagem</button> 
                 </div>
                 <div class="col-md-9">
                     <div class="col-sm-6 form-group">
@@ -44,12 +44,12 @@
                     <div class="col-sm-4 form-group">
                         <label for="rg">RG</label>
                         <input type="text" class="form-control" name="rg" id="rg" [(ngModel)]="aluno.rg"  ngModel>
-                    </div>
+                    </div>  
                     <div class="col-sm-4 form-group">
                         <label for="nascimento">Nascimento</label>
                         <input type="date" class="form-control" name="nascimento" required id="nascimento" [(ngModel)]="aluno.nascimento"  ngModel>
                         <span class="is-invalid" *ngIf="form.invalid">campo obrigatório</span>
-                    </div>
+                    </div>                           
                 </div>
             </div>
             <div class="row">
@@ -62,5 +62,6 @@
     </div>
    </article>
 </form>
-{{form.value | json}}
+{{form.value | json}} 
 </section>
+

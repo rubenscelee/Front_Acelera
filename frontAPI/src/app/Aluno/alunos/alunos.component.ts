@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component,Input, OnChanges, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { Component,Input, NO_ERRORS_SCHEMA, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { EMPTY, switchMap, take } from 'rxjs';
+import { ModalconfirmComponent } from 'src/app/_shared/_utils/modalconfirm/modalconfirm.component';
 
 @Component({
   selector: 'app-alunos',
@@ -9,21 +11,17 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 })
 export class AlunosComponent implements OnInit {
 
-  public urlAPI: string = "https://localhost:7146/api/Alunos";
+  public urlAPI: string = "https://localhost:44391/api/Alunos";
 
   public urlImagem: string = "https://images.freeimages.com/images/large-previews/8ca/peerless-chain-1-1641825.jpg";
-  public alunos: any=[];
-  public alunosFiltrados: any = [];
+  public alunos: any=[]; 
+  public alunosFiltrados: any = []; 
 
-  private idSelected: number = 0;
 
-  constructor(private http: HttpClient, private modalService: BsModalService) { }
-
-  valorDigitado = '';
+  constructor(private http: HttpClient, 
+  private modalService: BsModalService) { }
 
   confirmaExclusaoRef: BsModalRef | undefined;
-
-  //Variável vinda do alnos.component.html
   @ViewChild('confirmaExclusao') confirmaExclusao: any;
 
   public margemImg: number = 2;
@@ -58,10 +56,6 @@ export class AlunosComponent implements OnInit {
     this.mostrarImg = !this.mostrarImg;
   }
 
-  getKey(evento: KeyboardEvent){
-    this.valorDigitado = (<HTMLInputElement>evento.target).value
-  }
-
   public getAlunos():void{
     this.http.get(this.urlAPI).subscribe(
       response => {
@@ -74,35 +68,53 @@ export class AlunosComponent implements OnInit {
   }
 
   removerItem(id:number){
-    this.idSelected = id;
-    this.confirmaExclusaoRef = this.modalService.show(this.confirmaExclusao, {class: 'modal-sm'});
-    /*
-    this.http.delete(this.urlAPI+"/"+id).subscribe(
+
+    //this.confirmaExclusaoRef = this.modalService.show(this.confirmaExclusao, {class: 'modal-sm'});
+
+   const result$ = this.showConfirm('Confirmação','Realmente deseja excluir?');
+   result$?.asObservable()
+   .pipe(
+    take(1),
+    switchMap(async (result) => result ? this.getConfirm(id) : EMPTY)
+   ).subscribe(
+    response => {
+        console.log("SIM")
+    }, 
+    error => {
+      console.log("NÃO")
+    }
+   )
+   
+  }
+
+  showConfirm(title: string, msg: string, btnConfirm?: string, btnCancel?:string){
+    const bsModalRef: BsModalRef = this.modalService.show(ModalconfirmComponent);
+     
+    bsModalRef.content.title = title;
+    bsModalRef.content.msg = msg;
+    
+    if(btnConfirm) {
+      bsModalRef.content.btnConfirm = btnConfirm; 
+    }
+
+    if(btnCancel) {
+      bsModalRef.content.btnCancel = btnCancel; 
+    }
+
+    return (<ModalconfirmComponent>bsModalRef.content).confimResult;
+
+  }
+
+  getConfirm(id: number){
+    this.http.delete(`${this.urlAPI}/${id}`).subscribe(
       response=>{
         this.getAlunos();
       },
       error=>{
-
+        console.log(error);
       }
     )
-    */
-
-  }
-
-  onConfirm(){
-    this.http.delete(this.urlAPI+"/"+this.idSelected).subscribe(
-      response=>{
-        this.getAlunos();
-      },
-      error=>{
-        console.log(error)
-      }
-    )
-    this.confirmaExclusaoRef?.hide();
-  }
-
-  onDecline(){
-    this.confirmaExclusaoRef?.hide();
+    this.confirmaExclusaoRef?.hide(); 
   }
 
 }
